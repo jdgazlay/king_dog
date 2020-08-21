@@ -14,8 +14,8 @@ var is_jumping: = false
 var just_landed: = false
 
 
-func _process(delta):
-	_handle_movement()
+func _process(delta: float):
+	_handle_movement(delta)
 	_handle_action()
 	_animate()
 
@@ -30,7 +30,7 @@ func _handle_action() -> void:
 		print('borf borf borf')
 		emit_signal("bark")
 
-func _handle_movement() -> void:
+func _handle_movement(delta: float) -> void:
 	if Global.current_mode != Global.game_mode.NORMAL:
 		return
 		

@@ -8,5 +8,8 @@ enum game_mode {
 
 onready var current_mode: int = game_mode.START setget set_game_mode
 
+func _ready():
+	Engine.target_fps = 60
+
 func set_game_mode(mode: int):
 	current_mode = mode
