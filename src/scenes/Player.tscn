@@ -98,19 +98,20 @@ shape = SubResource( 6 )
 
 [node name="WoofSprite1" type="Sprite" parent="."]
 visible = false
-position = Vector2( 11, -3 )
+position = Vector2( 11, -3.04377 )
 scale = Vector2( 0.382064, 0.382064 )
 texture = ExtResource( 3 )
 
 [node name="Woof" type="Label" parent="."]
 visible = false
-margin_left = 13.4063
-margin_top = -11.9725
-margin_right = 25.4063
-margin_bottom = -3.97246
+margin_left = -24.0
+margin_top = -17.0
+margin_right = 28.0
+margin_bottom = -9.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "WOOF"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
@@ -118,13 +119,14 @@ __meta__ = {
 
 [node name="Borf" type="Label" parent="."]
 visible = false
-margin_left = 13.4063
-margin_top = -11.9725
-margin_right = 25.4063
-margin_bottom = -3.97246
+margin_left = -26.0
+margin_top = -15.0
+margin_right = 29.0
+margin_bottom = -7.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "BORF!"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
@@ -132,13 +134,14 @@ __meta__ = {
 
 [node name="Bork" type="Label" parent="."]
 visible = false
-margin_left = 13.4063
-margin_top = -11.9725
-margin_right = 25.4063
-margin_bottom = -3.97246
+margin_left = -23.0
+margin_top = -19.0
+margin_right = 28.0
+margin_bottom = -11.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "BORK!"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""

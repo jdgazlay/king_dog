@@ -18,6 +18,7 @@ var GRAVITY = 9.8
 var is_jumping: = false
 var is_barking: = false
 var just_landed: = false
+var rand_bark: Label
 
 onready var bark_words = [woof, borf, bork]
 
@@ -83,28 +84,49 @@ func _animate() -> void:
 		sprite.flip_h = true
 	elif velocity.x > 0:
 		sprite.flip_h = false
-	
-	if is_barking:
-		woof_sprite.position = Vector2(-11, -3) if sprite.flip_h else Vector2(11, -3)
 
-		if bark_tween.is_active():
-			return
+	_bark_animations()
 
-		bark_tween.interpolate_property(
-			woof_sprite,
-			"scale",
-			Vector2(0.382, 0.382),
-			Vector2(1, 1),
-			.25,
-			Tween.TRANS_BACK,
-			Tween.EASE_OUT
-		)
+
+func _orient_borfs() -> void:
+	if sprite.flip_h:
+		woof_sprite.position = Vector2(-11, -3)
+		if rand_bark:
+			rand_bark.align = Label.ALIGN_LEFT
+	else:
+		woof_sprite.position = Vector2(11, -3)
+		if rand_bark:
+			rand_bark.align = Label.ALIGN_RIGHT
+
+
+func _bark_animations() -> void:
+	if not is_barking:
+		return
+
+	_orient_borfs()
+
+	if bark_tween.is_active():
+		return
+
+	rand_bark = bark_words[rand_range(0, bark_words.size())]
+	_orient_borfs()
+
+	bark_tween.interpolate_property(
+		woof_sprite,
+		"scale",
+		Vector2(0.382, 0.382),
+		Vector2(1, 1),
+		.25,
+		Tween.TRANS_BACK,
+		Tween.EASE_OUT
+	)
+	if not bark_tween.get_signal_connection_list("tween_all_completed"):
 		bark_tween.connect("tween_all_completed", self, "_reset_bark")
-		woof_sprite.visible = true
-		var timer = Timer.new()
-		bark_tween.start()
-		bark_words[rand_range(0, bark_words.size())].visible = true
-		is_barking = false
+
+	woof_sprite.visible = true
+	rand_bark.visible = true
+	bark_tween.start()
+	is_barking = false
 
 
 func _reset_bark() -> void:
