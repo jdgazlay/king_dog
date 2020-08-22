@@ -4,7 +4,7 @@ onready var camera: = $Camera2D as Camera2D
 onready var player: = $Player as KinematicBody2D
 onready var StartCameraTarget: = $StartCameraTarget as Area2D
 onready var TitleText: = $Title as Node2D
-onready var water_animation_player: = $Water/Fish/AnimationPlayer
+onready var water_animation_player: = $Water/Fish/AnimationPlayer as AnimationPlayer
 
 var game_started: = false
 var barks: = 0
@@ -50,4 +50,4 @@ func _on_Player_bark():
 func _on_Area2D_area_entered(area):
 	fish_timer.stop()
 	fish_timer.queue_free()
-	$Water/Fish.queue_free()
+	water_animation_player.connect("animation_finished", $Water/Fish, "queue_free")

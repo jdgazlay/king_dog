@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/king_dog.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/woof_sprite.png" type="Texture" id=3]
+[ext_resource path="res://assets/open_sans_df.tres" type="DynamicFont" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -77,7 +79,6 @@ script = ExtResource( 2 )
 position = Vector2( 0, -4.76837e-07 )
 texture = ExtResource( 1 )
 hframes = 8
-frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 1 )
@@ -86,9 +87,61 @@ anims/land = SubResource( 3 )
 anims/run = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 5 )
 
 [node name="CollisionArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource( 6 )
+
+[node name="WoofSprite1" type="Sprite" parent="."]
+visible = false
+position = Vector2( 11, -3 )
+scale = Vector2( 0.382064, 0.382064 )
+texture = ExtResource( 3 )
+
+[node name="Woof" type="Label" parent="."]
+visible = false
+margin_left = 13.4063
+margin_top = -11.9725
+margin_right = 25.4063
+margin_bottom = -3.97246
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "WOOF"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Borf" type="Label" parent="."]
+visible = false
+margin_left = 13.4063
+margin_top = -11.9725
+margin_right = 25.4063
+margin_bottom = -3.97246
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "BORF!"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Bork" type="Label" parent="."]
+visible = false
+margin_left = 13.4063
+margin_top = -11.9725
+margin_right = 25.4063
+margin_bottom = -3.97246
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "BORK!"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="BarkTween" type="Tween" parent="."]
