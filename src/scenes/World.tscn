@@ -831,7 +831,6 @@ texture = ExtResource( 16 )
 [node name="ClimbStairs" type="AnimatedSprite" parent="."]
 position = Vector2( -648, 96 )
 frames = SubResource( 24 )
-frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="ClimbStairs"]

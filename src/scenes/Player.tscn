@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/king_dog.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
@@ -72,6 +72,58 @@ extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0.736364 ), 0.0, 2.46084, 0, 0, Vector2( 0.936819, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 2
+emission_box_extents = Vector3( 3, 3, 0 )
+flag_rotate_y = true
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 21.3
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 41.15
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.79
+tangential_accel = 100.0
+tangential_accel_random = 1.0
+scale_curve = SubResource( 8 )
+color = Color( 1, 1, 1, 0.427451 )
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0, 0.988839, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.0649422, 1, 1, 1, 0.0235294 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
+
+[sub_resource type="Curve" id=12]
+_data = [ Vector2( 0, 0.409091 ), 0.0, 0.0, 0, 0, Vector2( 0.987261, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=13]
+curve = SubResource( 12 )
+
+[sub_resource type="ParticlesMaterial" id=14]
+emission_shape = 2
+emission_box_extents = Vector3( 5, 1, 1 )
+flag_rotate_y = true
+flag_disable_z = true
+gravity = Vector3( 0, -1, 0 )
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 13 )
+color_ramp = SubResource( 11 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -155,3 +207,18 @@ visible = false
 position = Vector2( 18.8, -3.7 )
 rotation = 0.436332
 texture = ExtResource( 5 )
+
+[node name="KingWoofParticles" type="Particles2D" parent="KingWoofSprite"]
+position = Vector2( -1.26108, 1.19578 )
+rotation = -0.436332
+scale = Vector2( 1, 1 )
+amount = 25
+lifetime = 0.35
+process_material = SubResource( 9 )
+
+[node name="RunningParticles" type="Particles2D" parent="."]
+position = Vector2( -0.350124, 6.3899 )
+amount = 15
+local_coords = false
+draw_order = 1
+process_material = SubResource( 14 )

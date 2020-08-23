@@ -8,6 +8,7 @@ onready var borf: = $Borf as Label
 onready var bork: = $Bork as Label
 onready var woof_sprite: = $WoofSprite1 as Sprite
 onready var king_woof_sprite: = $KingWoofSprite as Sprite
+onready var running_particles: = $RunningParticles as Particles2D
 
 signal bark
 
@@ -77,14 +78,18 @@ func _handle_movement() -> void:
 func _animate() -> void:
 	if is_jumping:
 		animation_player.play("jump")
+		running_particles.emitting = false
 	elif just_landed:
 		animation_player.play("land")
+		running_particles.emitting = true
 	else:
 		if not animation_player.current_animation == "land":
 			if velocity.x == 0:
 				animation_player.play("idle")
+				running_particles.emitting = false
 			else:
 				animation_player.play("run")
+				running_particles.emitting = true
 	
 	if velocity.x < 0:
 		sprite.flip_h = true
