@@ -24,7 +24,7 @@ onready var bark_words = [woof, borf, bork]
 
 
 func _process(delta: float):
-	_handle_movement(delta)
+	_handle_movement()
 	_handle_action()
 	_animate()
 
@@ -42,8 +42,11 @@ func _handle_action() -> void:
 		emit_signal("bark")
 
 
-func _handle_movement(delta: float) -> void:
-	if Global.current_mode != Global.game_mode.NORMAL:
+func _handle_movement() -> void:
+	if Global.current_mode == Global.game_mode.CUTSCENE:
+		velocity = Vector2.ZERO
+		return
+	elif Global.current_mode != Global.game_mode.NORMAL:
 		return
 		
 	var velocity_x = floor(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))

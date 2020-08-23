@@ -13,7 +13,7 @@ var fish_timer: Timer
 var bark_timer: Timer
 
 func _ready():
-	camera.set_transition_speed(.01)
+	camera.set_transition_speed(0.01)
 	camera.set_target(StartCameraTarget)
 	_start_bark_timer()
 	_start_fish_timer()
@@ -42,7 +42,7 @@ func _give_bark_hint() -> void:
 
 
 func _start_game() -> void:
-	camera.set_transition_speed(.10)
+	camera.set_transition_speed(0.10)
 	camera.set_target(player)
 	TitleText.fade_out()
 	Global.set_game_mode(Global.game_mode.NORMAL)
@@ -76,3 +76,28 @@ func _on_Area2D_area_entered(area):
 	fish_timer.stop()
 	fish_timer.queue_free()
 	water_animation_player.connect("animation_finished", $Water/Fish, "queue_free")
+
+
+func _on_KingCutscene_area_entered(area):
+	Global.set_game_mode(Global.game_mode.CUTSCENE)
+	$King/Particles2D.emitting = true
+	camera.set_transition_speed(0.05)
+	camera.set_target($King)
+	yield(get_tree().create_timer(2.0), "timeout")
+	camera.set_target(player)
+	camera.set_transition_speed(0.10)
+	Global.set_game_mode(Global.game_mode.NORMAL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
