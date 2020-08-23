@@ -22,6 +22,8 @@ var rand_bark: Label
 
 onready var bark_words = [woof, borf, bork]
 
+var has_crown = false
+
 
 func _process(delta: float):
 	_handle_movement()
@@ -140,7 +142,7 @@ func _reset_bark() -> void:
 
 func fetch_crown() -> void:
 	sprite.texture = load("res://assets/king_dog_king.png")
-	pass
+	has_crown = true
 
 
 

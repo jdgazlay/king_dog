@@ -7,6 +7,7 @@ onready var TitleText: = $Title as Node2D
 onready var water_animation_player: = $Water/Fish/AnimationPlayer as AnimationPlayer
 onready var bark_hint_tween: = $Title/BarkHint/HintTween as Tween
 onready var bark_hint: = $Title/BarkHint as Node2D
+onready var foreground_tilemap: = $Foreground as TileMap
 
 var barks: = 0
 var fish_timer: Timer
@@ -19,6 +20,8 @@ func _ready():
 	camera.set_target(StartCameraTarget)
 	_start_bark_timer()
 	_start_fish_timer()
+	
+	print(foreground_tilemap.get_cell(0, 0))
 
 
 func _input(event):
@@ -92,6 +95,7 @@ func _on_KingCutscene_area_entered(area):
 	
 	if king_cutscene_count >= 1:
 		$KingCutscene.queue_free()
+		$ClimbStairs.queue_free()
 		
 	king_cutscene_count += 1
 		
