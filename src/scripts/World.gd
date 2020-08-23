@@ -14,8 +14,6 @@ var barks: = 0
 var fish_timer: Timer
 var bark_timer: Timer
 
-var king_cutscene_count = 0
-
 func _ready():
 	camera.set_transition_speed(camera.TRANS.OPENING)
 	camera.set_target(StartCameraTarget)
@@ -91,13 +89,8 @@ func _on_KingCutscene_area_entered(area):
 	camera.set_target(king_dog)
 	camera.set_transition_speed(camera.TRANS.NORMAL)
 	Global.set_game_mode(Global.game_mode.NORMAL)
-	
-	if king_cutscene_count >= 1:
-		$KingCutscene.queue_free()
-		$ClimbStairs.queue_free()
-		
-	king_cutscene_count += 1
-		
+	$KingCutscene.queue_free()
+	$ClimbStairs.queue_free()
 
 
 func _on_Crown_area_entered(area):

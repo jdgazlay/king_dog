@@ -7,6 +7,7 @@ onready var woof: = $Woof as Label
 onready var borf: = $Borf as Label
 onready var bork: = $Bork as Label
 onready var woof_sprite: = $WoofSprite1 as Sprite
+onready var king_woof_sprite: = $KingWoofSprite as Sprite
 
 signal bark
 
@@ -22,7 +23,7 @@ var rand_bark: Label
 
 onready var bark_words = [woof, borf, bork]
 
-var has_crown = false
+var has_crown = true
 
 
 func _process(delta: float):
@@ -96,10 +97,14 @@ func _animate() -> void:
 func _orient_borfs() -> void:
 	if sprite.flip_h:
 		woof_sprite.position = Vector2(-11, -3)
+		king_woof_sprite.position = Vector2(-18.8, -3.7)
+		king_woof_sprite.rotation_degrees = -125
 		if rand_bark:
 			rand_bark.align = Label.ALIGN_LEFT
 	else:
 		woof_sprite.position = Vector2(11, -3)
+		king_woof_sprite.position = Vector2(18.8, -3.7)
+		king_woof_sprite.rotation_degrees = 25
 		if rand_bark:
 			rand_bark.align = Label.ALIGN_RIGHT
 
@@ -115,20 +120,44 @@ func _bark_animations() -> void:
 
 	rand_bark = bark_words[rand_range(0, bark_words.size())]
 	_orient_borfs()
+	
+	if has_crown:
+		king_woof_sprite.scale = Vector2(0.4, 0.4)
+		bark_tween.interpolate_property(
+			king_woof_sprite,
+			"scale",
+			Vector2(0.4, 0.4),
+			Vector2(2.5, 2.5),
+			.25,
+			Tween.TRANS_LINEAR,
+			Tween.EASE_OUT
+		)
+		bark_tween.interpolate_property(
+			king_woof_sprite,
+			"position",
+			king_woof_sprite.position,
+			king_woof_sprite.position + Vector2(-50, 1) if sprite.flip_h else king_woof_sprite.position + Vector2(50, 1),
+			.35,
+			Tween.TRANS_LINEAR,
+			Tween.EASE_OUT
+		)
+		king_woof_sprite.visible = true
+	else:
+		woof_sprite.scale = Vector2(0.382, 0.382)
+		bark_tween.interpolate_property(
+			woof_sprite,
+			"scale",
+			Vector2(0.382, 0.382),
+			Vector2(1, 1),
+			.25,
+			Tween.TRANS_BACK,
+			Tween.EASE_OUT
+		)
+		woof_sprite.visible = true
 
-	bark_tween.interpolate_property(
-		woof_sprite,
-		"scale",
-		Vector2(0.382, 0.382),
-		Vector2(1, 1),
-		.25,
-		Tween.TRANS_BACK,
-		Tween.EASE_OUT
-	)
 	if not bark_tween.get_signal_connection_list("tween_all_completed"):
 		bark_tween.connect("tween_all_completed", self, "_reset_bark")
 
-	woof_sprite.visible = true
 	rand_bark.visible = true
 	bark_tween.start()
 	is_barking = false
@@ -136,6 +165,7 @@ func _bark_animations() -> void:
 
 func _reset_bark() -> void:
 	woof_sprite.visible = false
+	king_woof_sprite.visible = false
 	for i in range(bark_words.size()):
 		bark_words[i].visible = false
 
