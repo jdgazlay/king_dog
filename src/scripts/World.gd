@@ -85,6 +85,7 @@ func _on_KingCutscene_area_entered(area):
 	$King/Particles2D.emitting = true
 	camera.set_transition_speed(camera.TRANS.CINEMATIC)
 	camera.set_target($King)
+	$GroundColliders/CastlColliders/CastlStairs/ClosedStairs.visible = true
 	yield(get_tree().create_timer(3), "timeout")
 	camera.set_target(king_dog)
 	camera.set_transition_speed(camera.TRANS.NORMAL)
@@ -94,8 +95,9 @@ func _on_KingCutscene_area_entered(area):
 
 
 func _on_Crown_area_entered(area):
-	king_dog.fetch_crown()
-	$Crown.queue_free()
+	if $Crown.visible:
+		king_dog.fetch_crown()
+		$Crown.queue_free()
 
 
 

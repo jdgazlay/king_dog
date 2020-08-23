@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://assets/kenney_tilemap.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/World.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/exploding wall.png" type="Texture" id=22]
 [ext_resource path="res://src/scripts/BreakableCastleWall.gd" type="Script" id=23]
 [ext_resource path="res://assets/closed_stairs.png" type="Texture" id=24]
+[ext_resource path="res://assets/sound/080415pianobgm3popver.ogg" type="AudioStream" id=25]
 
 [sub_resource type="TileSet" id=1]
 0/name = "kenney_tilemap.png 0"
@@ -899,9 +900,14 @@ tile_set = SubResource( 36 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -262190, 0, 262145, -196654, 0, 262145, -65582, 0, 262145, -46, 0, 262145, 131026, 0, 262145, 196562, 0, 262145, 327634, 0, 262145, 393170, 0, 262145, 589802, 0, 196612, 589803, 0, 196609, 589804, 0, 196609, 589805, 0, 196609, 589806, 0, 196609, 589807, 0, 196609, 589808, 0, 196609, 786440, 0, 327691, 786441, 0, 327688, 786442, 0, 327688, 786443, 0, 327688, 786444, 0, 327688, 786445, 0, 327688, 786446, 0, 327688, 786447, 0, 327688, 786448, 0, 327688, 786449, 0, 327688, 786450, 0, 327688, 786451, 0, 327688, 786452, 0, 327688, 786453, 0, 327688, 786454, 0, 327688, 786455, 0, 327688, 786456, 0, 327688, 786457, 0, 327688, 786458, 0, 327688 )
-[connection signal="bark" from="Player" to="." method="_on_Player_bark"]
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+volume_db = -7.0
+autoplay = true
 [connection signal="bark" from="Player" to="GroundColliders/CastlColliders/BreakableCastleWall" method="_on_Player_bark"]
 [connection signal="bark" from="Player" to="King" method="_on_Player_bark"]
+[connection signal="bark" from="Player" to="." method="_on_Player_bark"]
 [connection signal="area_entered" from="Water/Fish/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Crown" to="." method="_on_Crown_area_entered"]
 [connection signal="area_entered" from="KingCutscene" to="." method="_on_KingCutscene_area_entered"]

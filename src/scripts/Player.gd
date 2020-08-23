@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const VOICE_LINE_PATH = "res://assets/sound/steps"
+
 onready var animation_player: = $AnimationPlayer as AnimationPlayer
 onready var sprite: = $Sprite as Sprite
 onready var bark_tween: = $BarkTween as Tween
@@ -9,12 +11,15 @@ onready var bork: = $Bork as Label
 onready var woof_sprite: = $WoofSprite1 as Sprite
 onready var king_woof_sprite: = $KingWoofSprite as Sprite
 onready var running_particles: = $RunningParticles as Particles2D
+onready var bark_audio: = $BarkAudio as AudioStreamPlayer
+onready var WalkingStreamPlayer: = $WalkingAudio as AudioStreamPlayer
+onready var footsteps: = get_audio_files()
 
 signal bark
 
 var velocity: = Vector2.ZERO
-export(int) var HORIZONTAL_SPEED = 100
-export(int) var JUMP_IMPULSE = -250
+var HORIZONTAL_SPEED = 100
+var JUMP_IMPULSE = -250
 var GRAVITY = 9.8
 
 var is_jumping: = false
@@ -24,17 +29,32 @@ var rand_bark: Label
 
 onready var bark_words = [woof, borf, bork]
 
-var has_crown = true
+var has_crown = false
+
+
+func get_audio_files() -> Array:
+	# gets all files in the voice lines folder and filter out non audio files
+
+	var voice_line_files = Global.get_files(VOICE_LINE_PATH)
+	var voice_audio_files = []
+
+	for file in voice_line_files:
+		# we have to do this due to https://github.com/godotengine/godot/issues/18390
+		if file.get_extension() == "import":
+			voice_audio_files.append(file.replace(".import", ""))
+		
+
+	return voice_audio_files
 
 
 func _process(delta: float):
 	_handle_movement()
 	_handle_action()
-	_animate()
 
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
+	_animate()
 
 
 func _handle_action() -> void:
@@ -79,6 +99,7 @@ func _animate() -> void:
 	if is_jumping:
 		animation_player.play("jump")
 		running_particles.emitting = false
+		
 	elif just_landed:
 		animation_player.play("land")
 		running_particles.emitting = true
@@ -90,6 +111,9 @@ func _animate() -> void:
 			else:
 				animation_player.play("run")
 				running_particles.emitting = true
+				if not WalkingStreamPlayer.playing and footsteps.size():
+					WalkingStreamPlayer.stream = load(footsteps[rand_range(0, footsteps.size())])
+					WalkingStreamPlayer.play()
 	
 	if velocity.x < 0:
 		sprite.flip_h = true
@@ -166,6 +190,9 @@ func _bark_animations() -> void:
 	rand_bark.visible = true
 	bark_tween.start()
 	is_barking = false
+	bark_audio.play(1.78)
+	yield(get_tree().create_timer(1.78), "timeout")
+	bark_audio.stop()
 
 
 func _reset_bark() -> void:

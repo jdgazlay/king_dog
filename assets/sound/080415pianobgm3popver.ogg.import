@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/080415pianobgm3popver.ogg-9ace3b130dabef6724ca3995abf8985a.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/080415pianobgm3popver.ogg"
+dest_files=[ "res://.import/080415pianobgm3popver.ogg-9ace3b130dabef6724ca3995abf8985a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

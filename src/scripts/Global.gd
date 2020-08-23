@@ -13,3 +13,25 @@ func _ready():
 
 func set_game_mode(mode: int):
 	current_mode = mode
+
+
+func get_files(root_path: String) -> Array:
+	var files = []
+	var dir = Directory.new()
+
+	if dir.open(root_path) == OK:
+		dir.list_dir_begin(true, false)
+
+		var file_name = dir.get_next()
+
+		while (file_name != ""):
+			var path = dir.get_current_dir() + "/" + file_name
+
+			if dir.current_is_dir():
+				files = files + get_files(path)
+			else:
+				files.append(path)
+
+			file_name = dir.get_next()
+
+	return files
