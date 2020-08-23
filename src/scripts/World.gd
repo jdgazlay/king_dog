@@ -56,13 +56,17 @@ func _start_bark_timer() -> void:
 	bark_timer.start(10)
 
 
-func _start_fish_timer():
+func _start_fish_timer() -> void:
 	fish_timer = Timer.new()
 	fish_timer.connect("timeout", water_animation_player, "play", ["fish_jump"])
-	fish_timer.one_shot = false
+	fish_timer.connect("timeout", self, "_play_fish_timer")
+	fish_timer.one_shot = true
 	add_child(fish_timer)
-	fish_timer.start(5)
+	_play_fish_timer()
 
+func _play_fish_timer() -> void:
+	fish_timer.start(rand_range(4, 7))
+	
 
 func _on_Player_bark():
 	barks += 1
