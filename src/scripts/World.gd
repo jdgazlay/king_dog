@@ -7,7 +7,8 @@ onready var TitleText: = $Title as Node2D
 onready var water_animation_player: = $Water/Fish/AnimationPlayer as AnimationPlayer
 onready var bark_hint_tween: = $Title/BarkHint/HintTween as Tween
 onready var bark_hint: = $Title/BarkHint as Node2D
-onready var foreground_tilemap: = $Foreground as TileMap
+onready var breakable_wall_collider: = $GroundColliders/CastlColliders/BreakableCastleWall/CollisionShape2D as CollisionShape2D
+onready var breakable_wall_anim: = $GroundColliders/CastlColliders/BreakableCastleWall/AnimationPlayer as AnimationPlayer
 
 var barks: = 0
 var fish_timer: Timer
@@ -20,8 +21,6 @@ func _ready():
 	camera.set_target(StartCameraTarget)
 	_start_bark_timer()
 	_start_fish_timer()
-	
-	print(foreground_tilemap.get_cell(0, 0))
 
 
 func _input(event):
