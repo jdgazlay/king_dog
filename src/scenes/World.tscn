@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://assets/kenney_tilemap.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/World.gd" type="Script" id=2]
@@ -352,8 +352,47 @@ orbit_velocity_random = 0.0
 scale_curve = SubResource( 31 )
 color_ramp = SubResource( 28 )
 
+[sub_resource type="Animation" id=34]
+resource_name = "flinch"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1352, -120 ), Vector2( -1358.28, -125.295 ), Vector2( -1367.97, -127.628 ), Vector2( -1361.87, -124.667 ), Vector2( -1358.55, -120 ), Vector2( -1357.29, -120.628 ), Vector2( -1356.31, -119.91 ), Vector2( -1356.04, -120 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 64.9, 90.0 ]
+}
+
 [sub_resource type="Animation" id=33]
-resource_name = "smoking"
+resource_name = "smoke"
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -367,6 +406,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 0, 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="RectangleShape2D" id=32]
@@ -636,7 +699,7 @@ position = Vector2( 33.9986, 0.996506 )
 shape = SubResource( 24 )
 
 [node name="CastleStairs20" type="StaticBody2D" parent="GroundColliders/CastlColliders/CastlStairs"]
-position = Vector2( -696, -296 )
+position = Vector2( -688, -296 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundColliders/CastlColliders/CastlStairs/CastleStairs20"]
 position = Vector2( 33.9986, 0.996506 )
@@ -705,7 +768,6 @@ tile_data = PoolIntArray( -262190, 0, 262145, -196654, 0, 262145, -65582, 0, 262
 [node name="ClimbStairs" type="AnimatedSprite" parent="."]
 position = Vector2( -648, 96 )
 frames = SubResource( 23 )
-frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="ClimbStairs"]
@@ -743,8 +805,9 @@ preprocess = 10.0
 process_material = SubResource( 29 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="King"]
-autoplay = "smoking"
-anims/smoking = SubResource( 33 )
+autoplay = "smoke"
+anims/flinch = SubResource( 34 )
+anims/smoke = SubResource( 33 )
 
 [node name="KingCutscene" type="Area2D" parent="."]
 position = Vector2( -968, -144 )
