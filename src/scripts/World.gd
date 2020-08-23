@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var camera: = $Camera2D as Camera2D
-onready var player: = $Player as KinematicBody2D
+onready var king_dog: = $Player as KinematicBody2D
 onready var StartCameraTarget: = $StartCameraTarget as Area2D
 onready var TitleText: = $Title as Node2D
 onready var water_animation_player: = $Water/Fish/AnimationPlayer as AnimationPlayer
@@ -12,8 +12,10 @@ var barks: = 0
 var fish_timer: Timer
 var bark_timer: Timer
 
+var king_cutscene_count = 0
+
 func _ready():
-	camera.set_transition_speed(0.01)
+	camera.set_transition_speed(camera.TRANS.OPENING)
 	camera.set_target(StartCameraTarget)
 	_start_bark_timer()
 	_start_fish_timer()
@@ -42,8 +44,8 @@ func _give_bark_hint() -> void:
 
 
 func _start_game() -> void:
-	camera.set_transition_speed(0.10)
-	camera.set_target(player)
+	camera.set_transition_speed(camera.TRANS.NORMAL)
+	camera.set_target(king_dog)
 	TitleText.fade_out()
 	Global.set_game_mode(Global.game_mode.NORMAL)
 
@@ -81,20 +83,23 @@ func _on_Area2D_area_entered(area):
 func _on_KingCutscene_area_entered(area):
 	Global.set_game_mode(Global.game_mode.CUTSCENE)
 	$King/Particles2D.emitting = true
-	camera.set_transition_speed(0.05)
+	camera.set_transition_speed(camera.TRANS.CINEMATIC)
 	camera.set_target($King)
-	yield(get_tree().create_timer(2.0), "timeout")
-	camera.set_target(player)
-	camera.set_transition_speed(0.10)
+	yield(get_tree().create_timer(3), "timeout")
+	camera.set_target(king_dog)
+	camera.set_transition_speed(camera.TRANS.NORMAL)
 	Global.set_game_mode(Global.game_mode.NORMAL)
+	
+	if king_cutscene_count >= 1:
+		$KingCutscene.queue_free()
+		
+	king_cutscene_count += 1
+		
 
 
-
-
-
-
-
-
+func _on_Crown_area_entered(area):
+	king_dog.fetch_crown()
+	$Crown.queue_free()
 
 
 

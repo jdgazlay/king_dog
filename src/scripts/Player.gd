@@ -138,6 +138,11 @@ func _reset_bark() -> void:
 		bark_words[i].visible = false
 
 
+func fetch_crown() -> void:
+	sprite.texture = load("res://assets/king_dog_king.png")
+	pass
+
+
 
 
 
