@@ -99,8 +99,11 @@ func _on_Crown_area_entered(area):
 		king_dog.fetch_crown()
 		$Crown.queue_free()
 
-
-
-
-
-
+func _on_StartPosition_area_entered(area):
+	if king_dog.has_crown:
+		Global.set_game_mode(Global.game_mode.CUTSCENE)
+		king_dog.position = $StartPosition.position
+		camera.set_transition_speed(camera.TRANS.OPENING)
+		camera.set_target(StartCameraTarget)
+		TitleText.fade_in()
+		

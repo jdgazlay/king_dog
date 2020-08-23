@@ -134,7 +134,6 @@ script = ExtResource( 2 )
 position = Vector2( 0, -4.76837e-07 )
 texture = ExtResource( 1 )
 hframes = 8
-frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 1 )

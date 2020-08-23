@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://assets/kenney_tilemap.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/World.gd" type="Script" id=2]
@@ -495,6 +495,9 @@ extents = Vector2( 24, 32 )
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=37]
+extents = Vector2( 8, 8 )
+
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -832,6 +835,7 @@ texture = ExtResource( 16 )
 [node name="ClimbStairs" type="AnimatedSprite" parent="."]
 position = Vector2( -648, 96 )
 frames = SubResource( 24 )
+frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="ClimbStairs"]
@@ -905,9 +909,16 @@ tile_data = PoolIntArray( -262190, 0, 262145, -196654, 0, 262145, -65582, 0, 262
 stream = ExtResource( 25 )
 volume_db = -7.0
 autoplay = true
+
+[node name="StartPosition" type="Area2D" parent="."]
+position = Vector2( 72, 168 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPosition"]
+shape = SubResource( 37 )
 [connection signal="bark" from="Player" to="GroundColliders/CastlColliders/BreakableCastleWall" method="_on_Player_bark"]
 [connection signal="bark" from="Player" to="King" method="_on_Player_bark"]
 [connection signal="bark" from="Player" to="." method="_on_Player_bark"]
 [connection signal="area_entered" from="Water/Fish/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Crown" to="." method="_on_Crown_area_entered"]
 [connection signal="area_entered" from="KingCutscene" to="." method="_on_KingCutscene_area_entered"]
+[connection signal="area_entered" from="StartPosition" to="." method="_on_StartPosition_area_entered"]

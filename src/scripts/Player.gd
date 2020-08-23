@@ -42,7 +42,6 @@ func get_audio_files() -> Array:
 		# we have to do this due to https://github.com/godotengine/godot/issues/18390
 		if file.get_extension() == "import":
 			voice_audio_files.append(file.replace(".import", ""))
-		
 
 	return voice_audio_files
 
@@ -191,7 +190,7 @@ func _bark_animations() -> void:
 	bark_tween.start()
 	is_barking = false
 	bark_audio.play(1.78)
-	yield(get_tree().create_timer(1.78), "timeout")
+	yield(get_tree().create_timer(1.00), "timeout")
 	bark_audio.stop()
 
 
