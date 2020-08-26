@@ -19,7 +19,7 @@
 [ext_resource path="res://assets/e_key.png" type="Texture" id=17]
 [ext_resource path="res://assets/open_sans_df.tres" type="DynamicFont" id=18]
 [ext_resource path="res://assets/kenney_transparent.png" type="Texture" id=19]
-[ext_resource path="res://src/scenes/King.gd" type="Script" id=20]
+[ext_resource path="res://src/scripts/King.gd" type="Script" id=20]
 [ext_resource path="res://assets/crown.png" type="Texture" id=21]
 [ext_resource path="res://assets/exploding wall.png" type="Texture" id=22]
 [ext_resource path="res://src/scripts/BreakableCastleWall.gd" type="Script" id=23]
