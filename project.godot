@@ -18,6 +18,7 @@ _global_script_class_icons={
 config/name="king_dog"
 run/main_scene="res://src/scenes/World.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://assets/icon.ico"
 
 [autoload]
 
