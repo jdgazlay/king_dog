@@ -935,8 +935,8 @@ position = Vector2( 72, 168 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPosition"]
 shape = SubResource( 37 )
-[connection signal="bark" from="Player" to="King" method="_on_Player_bark"]
 [connection signal="bark" from="Player" to="GroundColliders/CastlColliders/BreakableCastleWall" method="_on_Player_bark"]
+[connection signal="bark" from="Player" to="King" method="_on_Player_bark"]
 [connection signal="bark" from="Player" to="." method="_on_Player_bark"]
 [connection signal="area_entered" from="Water/Fish/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Crown" to="." method="_on_Crown_area_entered"]
